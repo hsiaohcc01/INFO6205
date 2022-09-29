@@ -1,51 +1,35 @@
-/*
-// Definition for a Node.
-class Node {
-    public int val;
-    public Node next;
-
-    public Node() {}
-
-    public Node(int _val) {
-        val = _val;
-    }
-
-    public Node(int _val, Node _next) {
-        val = _val;
-        next = _next;
-    }
-};
-*/
-
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
-    public Node insert(Node head, int insertVal) {
-        Node insertNode = new Node(insertVal);
-        if(head == null){
-            insertNode.next = insertNode;
-            return insertNode;
+    public ListNode swapNodes(ListNode head, int k) {
+        int listlenght = 0;
+        ListNode current = head;
+        while (current != null){
+            listlenght++;
+            current = current.next;
         }
 
-        Node curret = head;
-
-        while(curret.next != head){
-            int currentVal = curret.val, nextVal = curret.next.val;
-            if(currentVal > nextVal){
-                if(currentVal < insertVal && nextVal < insertVal){
-                    break;
-                }
-                if(currentVal > insertVal && nextVal > insertVal){
-                    break;
-                }
-            }
-            if(currentVal <= insertVal && insertVal <= nextVal){
-                break;
-            }
-            curret = curret.next;
+        ListNode first = head;
+        for (int i = 1; i < k; i++){
+            first = first.next;
         }
 
-        Node nex = curret.next;
-        curret.next = insertNode;
-        insertNode.next = nex;
+        ListNode second = head;
+        for (int i = 1; i<= listlenght - k; i++){
+            second = second.next;
+        }
+
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
         return head;
     }
 }
