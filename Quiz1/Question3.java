@@ -1,11 +1,24 @@
 class Solution {
-    public boolean isSameTree(TreeNode p, TreeNode q) {
-        if(p == null && q == null) return true;
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        List<List<Integer>> result = new LinkedList<>();
 
-        if(p == null || q == null) return false;
+        if(root == null) return result;
 
-        if(p.val != q.val) return false;
+        queue.add(root);
 
-        return isSameTree(p.right, q.right) && isSameTree(p.left, q.left);
+        while(!queue.isEmpty()){
+            int level = queue.size();
+            ArrayList<Integer> sublist = new ArrayList<>();
+
+            for(int i = 0; i < level; i++){
+                TreeNode node = queue.poll();
+                if(node.left != null) queue.add(node.left);
+                if(node.right != null) queue.add(node.right);
+                sublist.add(node.val);
+            }
+            result.add(sublist);
+        }
+        return result;
     }
 }
